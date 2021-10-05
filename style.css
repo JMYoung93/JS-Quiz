@@ -4,13 +4,13 @@
 }
 
 :root {
-    --hue-neutral: 200l;
-    --hue-wrong: 0;
-    --hue-correct: 145;
+    --neutralColor: blue;
+    --wrongColor: red;
+    --correctColor: green;
 }
 
 body {
-    --hue: var(--hue-neutral);
+    background: var(--neutralColor);
     padding: 0;
     margin: 0;
     display: flex;
@@ -22,11 +22,11 @@ body {
 }
 
 body.correct {
-   --hue: var(--hue-correct)
+   background: var(--correctColor);
 }
 
 body.wrong {
-    --hue: var(--hue-wrong)
+    background: var(--wrongColor);
  }
 
  .container {
@@ -46,12 +46,12 @@ body.wrong {
  }
 
  .btn {
-     --hue: var(--hue-neutral);
+     background: var(--neutralColor);
      border: 1px solid hsl(var(--hue), 100%, 30%);
      background-color: hsl(var(--hue), 100%, 50%);
      border-radius: 5px;
      padding: 5px 10px;
-     color: white;
+     color: black;
      outline: none;
  }
 
@@ -60,12 +60,12 @@ body.wrong {
  }
 
  .btn.correct {
-     --hue: var(--hue-correct);
+     background: var(--correctColor);
      color: black;
  }
 
  .btn.wrong {
-     --hue: var(--hue-wrong)
+     background: var(--wrongColor);
  }
 
  .start-btn, .next-btn {
