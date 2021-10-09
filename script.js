@@ -13,6 +13,7 @@ nextButton.addEventListener('click', () => {
 })
 
 function startGame() {
+startTimer()
 console.log('Started')
 startButton.classList.add('hide')
 shuffleQuestions = questions.sort(() => Math.random() - .5)
@@ -55,7 +56,7 @@ setStatusClass(document.body, correct)
 Array.from(answerButtonsElement.children).forEach(button => {
     setStatusClass(button, button.dataset.correct)
 })
-if (shuffledQuestions.length > currentQuestionIndex + 1) {
+if (shuffleQuestions.length > currentQuestionIndex + 1) {
     nextButton.classList.remove('hide')
 } else {
    startButton.innerText = 'Restart'
@@ -68,7 +69,9 @@ function setStatusClass(element, correct) {
     if (correct) {
         element.classList.add('correct')
     } else {
-        element.classlist.add('wrong')
+        element.classList.add('wrong')
+        newSecond = sec - 5;
+        document.getElementById('timerDisplay').innerHTML='00:'+ newSecond;
     }
 }
 
@@ -111,4 +114,23 @@ const questions = [
       ]
     }
   ]
+
+ 
+    var sec = 60;
+    function startTimer(){
+        console.log('timer suppose to go')
+        var timer = setInterval(function(){
+            sec--;
+            document.getElementById('timerDisplay').innerHTML='00:'+ sec;
+            if (sec < 0) {
+                clearInterval(timer);
+                alert("Time is up!")
+            }
+        }, 1000);
+    }
+    // document.getElementsByClassName(wrong).addEventListener('click', function() {
+        
+    // });
+    // startTimer();
+
   
