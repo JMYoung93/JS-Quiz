@@ -13,6 +13,21 @@ nextButton.addEventListener('click', () => {
     setNextQuestion ()
 })
 
+function startTimer(){
+  console.log('timer suppose to go')
+  var timer = setInterval(function(){
+      sec--;
+
+      document.getElementById('timerDisplay').innerHTML='00:'+ sec;
+      console.log(sec)
+      if (sec <= 0) {
+          clearInterval(timer);
+          alert("Time is up!")
+      }
+  }, 1000);
+
+}
+
 function startGame() {
 startTimer()
 console.log('Started')
@@ -53,6 +68,7 @@ function resetState () {
 function selectAnswer (e) {
 const selectedButton = e.target
 const correct = selectedButton.dataset.correct
+
 // setStatusClass(document.body, correct)
 // Array.from(answerButtonsElement.children).forEach(button => {
 //     setStatusClass(button, button.dataset.correct)
@@ -88,40 +104,62 @@ function shuffle(arr) {
 const clone = [...arr]
 return clone.sort (() => Math.random() - 0.5);}
 
-const questions = [
-    {
-      question: 'What is 2 + 2?',
-      answers: [
-        { text: '4', correct: true },
-        { text: '22', correct: false }
-      ]
-    },
-    {
-      question: 'Who is the best YouTuber?',
-      answers: [
-        { text: 'Web Dev Simplified', correct: true },
-        { text: 'Traversy Media', correct: true },
-        { text: 'Dev Ed', correct: true },
-        { text: 'Fun Fun Function', correct: true }
-      ]
-    },
-    {
-      question: 'Is web development fun?',
-      answers: [
-        { text: 'Kinda', correct: false },
-        { text: 'YES!!!', correct: true },
-        { text: 'Um no', correct: false },
-        { text: 'IDK', correct: false }
-      ]
-    },
-    {
-      question: 'What is 4 * 2?',
-      answers: [
-        { text: '6', correct: false },
-        { text: '8', correct: true }
-      ]
-    }
+let questions = [
+  {
+  numb: 1,
+  question: "What does HTML stand for?",
+  answer: "Hyper Text Markup Language",
+  options: [
+    "Hyper Text Preprocessor",
+    "Hyper Text Markup Language",
+    "Hyper Text Multiple Language",
+    "Hyper Tool Multi Language"
   ]
+},
+  {
+  numb: 2,
+  question: "What does CSS stand for?",
+  answer: "Cascading Style Sheet",
+  options: [
+    "Common Style Sheet",
+    "Colorful Style Sheet",
+    "Computer Style Sheet",
+    "Cascading Style Sheet"
+  ]
+},
+  {
+  numb: 3,
+  question: "What does PHP stand for?",
+  answer: "Hypertext Preprocessor",
+  options: [
+    "Hypertext Preprocessor",
+    "Hypertext Programming",
+    "Hypertext Preprogramming",
+    "Hometext Preprocessor"
+  ]
+},
+  {
+  numb: 4,
+  question: "What does SQL stand for?",
+  answer: "Structured Query Language",
+  options: [
+    "Stylish Question Language",
+    "Stylesheet Query Language",
+    "Statement Question Language",
+    "Structured Query Language"
+  ]
+},
+  {
+  numb: 5,
+  question: "What does XML stand for?",
+  answer: "eXtensible Markup Language",
+  options: [
+    "eXtensible Markup Language",
+    "eXecutable Multiple Language",
+    "eXTra Multi-Program Language",
+    "eXamine Multiple Language"
+  ]
+  },
 
   
   function startTimer(){
@@ -142,4 +180,4 @@ const questions = [
         
     // });
     // startTimer();
-
+]
