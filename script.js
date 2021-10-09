@@ -1,7 +1,7 @@
 const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
+const questionElement = document.getElementById('questions')
 const answerButtonsElement = document.getElementById('answer-buttons')
 var sec = 60;
 
@@ -40,12 +40,12 @@ setNextQuestion()
 
 function setNextQuestion () {
     resetState()
-    showQuestion (shuffleQuestions[currentQuestionIndex])
+    showQuestion (shuffleQuestions[currentQuestionsIndex])
 }
 
-function showQuestion(question) {
-questionElement.innerText = question.question
-question.answers.forEach(answer => {
+function showQuestion(questions) {
+questionElement.innerText = questions.questions
+questions.answers.forEach(answer => {
     const button = document.createElement('button')
     button.innerText = answer.text
     button.classList.add('btn')
