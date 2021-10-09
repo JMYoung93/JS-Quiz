@@ -4,7 +4,6 @@ const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('questions')
 const answerButtonsElement = document.getElementById('answer-buttons')
 var sec = 60;
-let questions = questionsElement
 let shuffleQuestions, currentQuestionIndex
 
 let questions = [
