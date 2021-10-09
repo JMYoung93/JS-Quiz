@@ -71,7 +71,7 @@ function setStatusClass(element, correct) {
     } else {
         element.classList.add('wrong')
         newSecond = sec - 5;
-        document.getElementById('timerDisplay').innerHTML='00:'+ newSecond;
+        // document.getElementById('timerDisplay').innerHTML='00:'+ newSecond;
     }
 }
 
