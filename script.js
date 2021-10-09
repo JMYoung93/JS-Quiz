@@ -3,6 +3,7 @@ const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+var sec = 60;
 
 let shuffleQuestions, currentQuestionIndex
 
@@ -52,33 +53,40 @@ function resetState () {
 function selectAnswer (e) {
 const selectedButton = e.target
 const correct = selectedButton.dataset.correct
-setStatusClass(document.body, correct)
-Array.from(answerButtonsElement.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct)
-})
+// setStatusClass(document.body, correct)
+// Array.from(answerButtonsElement.children).forEach(button => {
+//     setStatusClass(button, button.dataset.correct)
+
+  
+}
 if (shuffleQuestions.length > currentQuestionIndex + 1) {
     nextButton.classList.remove('hide')
 } else {
    startButton.innerText = 'Restart'
    startButton.classList.remove('hide')
 }
-}
 
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-        element.classList.add('correct')
-    } else {
-        element.classList.add('wrong')
-        newSecond = sec - 5;
-        // document.getElementById('timerDisplay').innerHTML='00:'+ newSecond;
-    }
-}
+if (selectedButton.dataset.correct === false) {sec = sec -2}
+  
+// function setStatusClass(element, correct) {
+//     clearStatusClass(element)
+//     if (correct) {
+//         element.classList.add('correct')
+//     } else {
+//         element.classList.add('wrong')
+//         sec = sec - 2;
+//         // document.getElementById('timerDisplay').innerHTML='00:'+ newSecond;
+//     }
+// }
 
 function clearStatusClass(element) {
   element.classList.remove ('correct')  
   element.classList.remove ('wrong')
 }
+
+function shuffle(arr) {
+const clone = [...arr]
+return clone.sort (() => Math.random() - 0.5);}
 
 const questions = [
     {
@@ -115,22 +123,23 @@ const questions = [
     }
   ]
 
- 
-    var sec = 60;
-    function startTimer(){
-        console.log('timer suppose to go')
-        var timer = setInterval(function(){
-            sec--;
-            document.getElementById('timerDisplay').innerHTML='00:'+ sec;
-            if (sec < 0) {
-                clearInterval(timer);
-                alert("Time is up!")
-            }
-        }, 1000);
+  
+  function startTimer(){
+      console.log('timer suppose to go')
+      var timer = setInterval(function(){
+          sec--;
+
+          document.getElementById('timerDisplay').innerHTML='00:'+ sec;
+          console.log(sec)
+          if (sec <= 0) {
+              clearInterval(timer);
+              alert("Time is up!")
+          }
+      }, 1000);
+  
     }
     // document.getElementsByClassName(wrong).addEventListener('click', function() {
         
     // });
     // startTimer();
 
-  
