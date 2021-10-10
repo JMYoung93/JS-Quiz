@@ -3,156 +3,132 @@ const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('questions')
 const answerButtonsElement = document.getElementById('answer-buttons')
-var sec = 60;
-let shuffleQuestions, currentQuestionIndex
+const timeLeft = document.getElementById('timerDisplay')
+const answerBtn = document.querySelectorAll('.btn')
+const ldrBoard = document.getElementById('leadership-board')
+const submitBtn = document.getElementById('submit-btn')
+
+var userScore = 0
+var currentQuestionsIndex = 0
+var sec = 60
+var timerInterval ; 
+
+
 
 let questions = [
   {
   numb: 1,
   question: "What does HTML stand for?",
+  options1: "Hyper Text Preprocessor",
+  options2: "Hyper Text Markup Language",
+  options3: "Hyper Text Multiple Language",
+  options4: "Hyper Tool Multi Language",
   answer: "Hyper Text Markup Language",
-  options: [
-    "Hyper Text Preprocessor",
-    "Hyper Text Markup Language",
-    "Hyper Text Multiple Language",
-    "Hyper Tool Multi Language"
-  ]
 },
   {
   numb: 2,
   question: "What does CSS stand for?",
+  options1:"Common Style Sheet",
+  options2: "Colorful Style Sheet",
+  options3:"Computer Style Sheet",
+  options4: "Cascading Style Sheet",
   answer: "Cascading Style Sheet",
-  options: [
-    "Common Style Sheet",
-    "Colorful Style Sheet",
-    "Computer Style Sheet",
-    "Cascading Style Sheet"
-  ]
 },
   {
   numb: 3,
   question: "What does PHP stand for?",
+  options1: "Hypertext Preprocessor",
+  options2: "Hypertext Programming",
+  options3: "Hypertext Preprogramming",
+  options4:"Hometext Preprocessor",
   answer: "Hypertext Preprocessor",
-  options: [
-    "Hypertext Preprocessor",
-    "Hypertext Programming",
-    "Hypertext Preprogramming",
-    "Hometext Preprocessor"
-  ]
 },
   {
   numb: 4,
   question: "What does SQL stand for?",
-  answer: "Structured Query Language",
-  options: [
-    "Stylish Question Language",
-    "Stylesheet Query Language",
-    "Statement Question Language",
-    "Structured Query Language"
-  ]
+  options1: "Stylish Question Language",
+  options2: "Stylesheet Query Language",
+  options3: "Statement Question Language",
+  options4: "Structured Query Language",
+  answer: "Structured Query Language", 
 },
   {
   numb: 5,
   question: "What does XML stand for?",
+  options1: "eXtensible Markup Language",
+  options2:"eXecutable Multiple Language",
+  options3: "eXTra Multi-Program Language",
+  options4:"eXamine Multiple Language",
   answer: "eXtensible Markup Language",
-  options: [
-    "eXtensible Markup Language",
-    "eXecutable Multiple Language",
-    "eXTra Multi-Program Language",
-    "eXamine Multiple Language"
-  ]},
-  //the array ends at this close bracket, so the function above that is inside of the array.
+  },
 ]
 
-startButton.addEventListener('click', startGame)
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++
-    setNextQuestion ()
-})
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    sec--;
+    timeLeft.textContent = "00:" + sec;
 
-function startTimer(){
-  console.log('timer suppose to go')
-  var timer = setInterval(function(){
-      sec--;
+    if(sec === 0) {
+      // Stops execution of action at set interval
+      clearInterval(sec);
+    }
 
-      document.getElementById('timerDisplay').innerHTML='00:'+ sec;
-      console.log(sec)
-      if (sec <= 0) {
-          clearInterval(timer);
-          alert("Time is up!")
-      }
   }, 1000);
-
 }
 
-function startGame() {
-startTimer()
-console.log('Started')
-startButton.classList.add('hide')
-shuffleQuestions = questions.sort(() => Math.random() - .5)
-currentQuestionsIndex = 0
-questionContainerElement.classList.remove('hide')
-setNextQuestion()
+var startGame = function () {
+  setTime()
+  startButton.classList.add('hide')
+  questionContainerElement.classList.remove('hide')
+  questionIndex()
 }
 
-function setNextQuestion () {
-    resetState()
-    showQuestion (shuffleQuestions[currentQuestionsIndex])
-}
-
-function showQuestion(questions) {
-questionElement.innerText = questions.questions
-questions.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
-    if (answer.correct) {
-        button.dataset.correct = answer.correct
-    }
-    button.addEventListener('click', selectAnswer)
-    answerButtonsElement.appendChild(button)
-})
-}
-
-function resetState () {
-    clearStatusClass(document.body)
-    nextButton.classList.add('hide')
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-    }
-}
-
-function selectAnswer (e) {
-const selectedButton = e.target
-const correct = selectedButton.dataset.correct
-
-// setStatusClass(document.body, correct)
-// Array.from(answerButtonsElement.children).forEach(button => {
-//     setStatusClass(button, button.dataset.correct)
-
-  
-}
-if (shuffleQuestions.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide')
+var userSelect = function (e) {
+var selectBtn = e.target.textContent
+// console.log(selectBtn)
+if (selectBtn === questions[currentQuestionsIndex].answer) {
+  alert('Correct!')
+  userScore++
 } else {
-   startButton.innerText = 'Restart'
-   startButton.classList.remove('hide')
+  alert('Incorrect 😢')
+  sec -= 5
+  console.log(sec)
+}
+currentQuestionsIndex++
+
+if (currentQuestionsIndex === questions.length) {
+  clearInterval(timerInterval)
+  questionContainerElement.classList.add('hide')
+  ldrBoard.classList.remove('hide')
+  timeLeft.classList.add('hide')
+} else {
+  questionIndex()
+}
+}
+var questionIndex = function () {
+questionElement.textContent = questions[currentQuestionsIndex].question
+answerBtn[0].textContent = questions[currentQuestionsIndex].options1
+answerBtn[1].textContent = questions[currentQuestionsIndex].options2
+answerBtn[2].textContent = questions[currentQuestionsIndex].options3
+answerBtn[3].textContent = questions[currentQuestionsIndex].options4
 }
 
-if (selectedButton.dataset.correct === false) {sec = sec -2}
-  
-// function setStatusClass(element, correct) {
-//     clearStatusClass(element)
-//     if (correct) {
-//         element.classList.add('correct')
-//     } else {
-//         element.classList.add('wrong')
-//         sec = sec - 2;
-//         // document.getElementById('timerDisplay').innerHTML='00:'+ newSecond;
-//     }
-// }
-
-function clearStatusClass(element) {
-  element.classList.remove ('correct')  
-  element.classList.remove ('wrong')
+var scoreDisplay = function (e) {
+e.preventDefault ()
+var playerName = document.querySelector('.endGame').value.trim()
+var playerInfo = {
+  name: playerName,
+  score: userScore,
 }
+// var playerScore = document.querySelector('.player-scores')
+localStorage.setItem('playerInfo', JSON.stringify(playerInfo))
+var fetch = JSON.parse(localStorage.getItem('playerInfo'))
+fetch.playerName
+document.querySelector(".player-scores").innerHTML = playerName + " " + fetch.score
+console.log(playerName)
+}
+
+startButton.addEventListener('click', startGame)
+answerButtonsElement.addEventListener('click', userSelect)
+submitBtn.addEventListener('click', scoreDisplay)
